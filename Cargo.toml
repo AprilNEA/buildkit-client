@@ -1,5 +1,8 @@
-[package]
-name = "buildkit-client"
+[workspace]
+members = [".", "crates/bkit"]
+resolver = "2"
+
+[workspace.package]
 version = "0.1.1"
 edition = "2021"
 authors = ["AprilNEA <dev@aprilnea.me>"]
@@ -11,6 +14,9 @@ documentation = "https://docs.rs/buildkit-client"
 readme = "README.md"
 keywords = ["buildkit", "docker", "container", "grpc", "build"]
 categories = ["api-bindings", "development-tools", "command-line-utilities"]
+
+[package]
+name = "buildkit-client"
 include = [
     "src/**/*",
     "tests/**/*",
@@ -22,6 +28,16 @@ include = [
     "LICENSE*",
     "proto/**/*.proto",
 ]
+version = { workspace = true }
+edition = { workspace = true }
+authors = { workspace = true }
+description = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+documentation = { workspace = true }
+readme = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
 
 [dependencies]
 # gRPC and async runtime
