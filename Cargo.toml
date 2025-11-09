@@ -1,12 +1,12 @@
 [package]
 name = "buildkit-client"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["AprilNEA <dev@aprilnea.me>"]
 description = "A Rust client library and CLI for interacting with BuildKit via gRPC, implementing the complete BuildKit session protocol"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/rbuildkit/buildkit-client"
-homepage = "https://github.com/rbuildkit/buildkit-client"
+repository = "https://github.com/AprilNEA/buildkit-client"
+homepage = "https://github.com/AprilNEA/buildkit-client"
 documentation = "https://docs.rs/buildkit-client"
 readme = "README.md"
 keywords = ["buildkit", "docker", "container", "grpc", "build"]
