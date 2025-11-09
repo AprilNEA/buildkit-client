@@ -8,7 +8,6 @@ GOOGLEAPIS_REPO = "https://github.com/googleapis/googleapis.git"
 GOOGLEAPIS_REF = "master"
 
 # Build configuration
-PROTO_DIR = "proto"
 PROTO_REBUILD = "false"
 ## "content" (default, download directly) or "clone" (clone repository)
 PROTO_FETCH_MODE = "content"

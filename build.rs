@@ -8,7 +8,6 @@ const DEFAULT_BUILDKIT_REPO: &str = "https://github.com/moby/buildkit.git";
 const DEFAULT_BUILDKIT_REF: &str = "master";
 const DEFAULT_GOOGLEAPIS_REPO: &str = "https://github.com/googleapis/googleapis.git";
 const DEFAULT_GOOGLEAPIS_REF: &str = "master";
-const DEFAULT_PROTO_DIR: &str = "proto";
 const DEFAULT_PROTO_REBUILD: &str = "false";
 
 // Proto file lists
@@ -104,11 +103,17 @@ struct ProtoConfig {
 
 impl ProtoConfig {
     fn from_env() -> Result<Self, Box<dyn std::error::Error>> {
-        let buildkit_repo = env::var("BUILDKIT_REPO").unwrap_or_else(|_| DEFAULT_BUILDKIT_REPO.to_string());
-        let buildkit_ref = env::var("BUILDKIT_REF").unwrap_or_else(|_| DEFAULT_BUILDKIT_REF.to_string());
-        let googleapis_repo = env::var("GOOGLEAPIS_REPO").unwrap_or_else(|_| DEFAULT_GOOGLEAPIS_REPO.to_string());
-        let googleapis_ref = env::var("GOOGLEAPIS_REF").unwrap_or_else(|_| DEFAULT_GOOGLEAPIS_REF.to_string());
-        let force_rebuild = env::var("PROTO_REBUILD").unwrap_or_else(|_| DEFAULT_PROTO_REBUILD.to_string()) == "true";
+        let buildkit_repo =
+            env::var("BUILDKIT_REPO").unwrap_or_else(|_| DEFAULT_BUILDKIT_REPO.to_string());
+        let buildkit_ref =
+            env::var("BUILDKIT_REF").unwrap_or_else(|_| DEFAULT_BUILDKIT_REF.to_string());
+        let googleapis_repo =
+            env::var("GOOGLEAPIS_REPO").unwrap_or_else(|_| DEFAULT_GOOGLEAPIS_REPO.to_string());
+        let googleapis_ref =
+            env::var("GOOGLEAPIS_REF").unwrap_or_else(|_| DEFAULT_GOOGLEAPIS_REF.to_string());
+        let force_rebuild = env::var("PROTO_REBUILD")
+            .unwrap_or_else(|_| DEFAULT_PROTO_REBUILD.to_string())
+            == "true";
 
         // Use OUT_DIR for proto files instead of source directory
         let out_dir = PathBuf::from(env::var("OUT_DIR")?);
@@ -493,7 +498,7 @@ fn clone_repository(
 ) -> Result<(), Box<dyn std::error::Error>> {
     // First try to clone with depth 1 and specific branch/tag
     let output = Command::new("git")
-        .args(&[
+        .args([
             "clone",
             "--depth",
             "1",
@@ -510,7 +515,7 @@ fn clone_repository(
 
         // Clone without branch
         let output = Command::new("git")
-            .args(&["clone", repo_url, dest.to_str().unwrap()])
+            .args(["clone", repo_url, dest.to_str().unwrap()])
             .output()?;
 
         if !output.status.success() {
@@ -524,7 +529,7 @@ fn clone_repository(
         // Checkout specific commit
         let output = Command::new("git")
             .current_dir(dest)
-            .args(&["checkout", git_ref])
+            .args(["checkout", git_ref])
             .output()?;
 
         if !output.status.success() {
