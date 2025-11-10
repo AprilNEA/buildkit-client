@@ -179,38 +179,9 @@ checksum = "812e12b5285cc515a9c72a5c1d3b6d46a19dac5acfef5265968c166106e31dd3"
 
 [[package]]
 name = "bkit"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
- "buildkit-client 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "buildkit-client"
-version = "0.1.2"
-dependencies = [
- "anyhow",
- "async-stream",
- "bytes",
- "clap",
- "criterion",
- "dotenv",
- "h2",
- "http",
- "prost",
- "prost-types",
- "rand",
- "reqwest",
- "serde",
- "serde_json",
- "tempfile",
- "thiserror",
- "tokio",
- "tokio-stream",
- "tonic",
- "tonic-build",
- "tracing",
- "tracing-subscriber",
- "uuid",
+ "buildkit-client 0.1.2",
 ]
 
 [[package]]
@@ -231,6 +202,35 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "tonic-build",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
+name = "buildkit-client"
+version = "0.1.3"
+dependencies = [
+ "anyhow",
+ "async-stream",
+ "bytes",
+ "clap",
+ "criterion",
+ "dotenv",
+ "h2",
+ "http",
+ "prost",
+ "prost-types",
+ "rand",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tempfile",
  "thiserror",
  "tokio",
  "tokio-stream",
