@@ -174,6 +174,14 @@ Implements fsutil's bidirectional streaming protocol for file transfer:
 - Mode bits must be correct: `0o100644` (files), `0o040755` (dirs)
 - Empty packets signal EOF, not FIN (FIN is for entire transfer)
 
+**`.dockerignore` Handling:**
+- **Client sends ALL files** including `.dockerignore` itself to BuildKit
+- **BuildKit processes `.dockerignore` server-side** when loading the context
+- Client does NOT need to parse or filter files based on `.dockerignore`
+- Introduced in BuildKit v0.10.0 via [PR #2550](https://github.com/moby/buildkit/pull/2550)
+- BuildKit reads `.dockerignore` from the transferred context and applies filters during build
+- This matches Docker's behavior where `.dockerignore` only applies to local context transfers
+
 #### 4. Nested Loop Exit Pattern
 
 **Bug to avoid in bidirectional streams:**
@@ -253,6 +261,13 @@ Use `GITHUB_TOKEN` environment variable for custom token.
 - File ID mismatch between STAT packets and file_map
 - IDs must increment for ALL entries (files + dirs)
 - file_map should only contain actual files
+
+### "changes out of order" error
+- fsutil/validator requires files in depth-first traversal order
+- Within each directory, entries must be sorted alphabetically by name
+- Directories must be sent before their contents
+- Use depth-first recursive sending, NOT collect-and-sort approach
+- See `send_stat_packets_dfs` in `grpc_tunnel.rs` for correct implementation
 
 ### Build completes but push fails
 - Registry not running: `docker run -d -p 5000:5000 registry:2`
