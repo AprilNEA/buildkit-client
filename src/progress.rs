@@ -74,6 +74,7 @@ impl ProgressHandler for ConsoleProgressHandler {
 }
 
 /// JSON progress handler that outputs structured JSON
+#[derive(Default)]
 pub struct JsonProgressHandler;
 
 impl JsonProgressHandler {
@@ -130,6 +131,7 @@ impl ProgressHandler for JsonProgressHandler {
 }
 
 /// Silent progress handler that doesn't output anything
+#[derive(Default)]
 pub struct SilentProgressHandler;
 
 impl SilentProgressHandler {

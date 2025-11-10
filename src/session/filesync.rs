@@ -100,7 +100,6 @@ impl FileSyncServer {
 
     /// Read directory and send stat packets
     fn read_directory<'a>(
-        &'a self,
         path: &'a Path,
         prefix: &'a str,
         tx: &'a tokio::sync::mpsc::Sender<Result<Packet, Status>>,
@@ -126,7 +125,7 @@ impl FileSyncServer {
 
                 // Recursively handle directories
                 if entry_path.is_dir() {
-                    self.read_directory(&entry_path, &rel_path, tx).await?;
+                    FileSyncServer::read_directory(&entry_path, &rel_path, tx).await?;
                 }
             }
 
@@ -195,7 +194,7 @@ impl FileSync for FileSyncServer {
             tracing::debug!("Starting DiffCopy session");
 
             // First, send all file stats
-            if let Err(e) = server.read_directory(&server.root_path, "", &tx).await {
+            if let Err(e) = FileSyncServer::read_directory(&server.root_path, "", &tx).await {
                 tracing::error!("Failed to read directory: {}", e);
                 let _ = tx.send(Err(Status::internal(format!("Failed to read directory: {}", e)))).await;
                 return;

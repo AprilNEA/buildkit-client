@@ -267,10 +267,8 @@ impl GrpcTunnel {
         // Send STAT packets in sorted order and build file map
         use std::collections::HashMap;
         let mut file_map = HashMap::new();
-        let mut id_counter = 0u32;
-        for (rel_path, entry_path, metadata) in entries {
-            let entry_id = id_counter;
-            id_counter += 1;
+        for (id_counter, (rel_path, entry_path, metadata)) in entries.into_iter().enumerate() {
+            let entry_id = id_counter as u32;
 
             use crate::proto::fsutil::types::{Packet, packet::PacketType, Stat};
 
@@ -570,7 +568,7 @@ impl GrpcTunnel {
     }
 
     /// Handle Auth.GetTokenAuthority request
-    ///
+    #[allow(dead_code)]
     async fn handle_auth_get_token_authority(&self, payload: Bytes) -> Result<Bytes> {
         use crate::proto::moby::filesync::v1::{GetTokenAuthorityRequest, GetTokenAuthorityResponse};
 

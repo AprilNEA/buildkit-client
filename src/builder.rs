@@ -72,12 +72,14 @@ impl Platform {
         }
     }
 
-    /// Convert to buildkit format string
-    pub fn to_string(&self) -> String {
+}
+
+impl std::fmt::Display for Platform {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if let Some(variant) = &self.variant {
-            format!("{}/{}/{}", self.os, self.arch, variant)
+            write!(f, "{}/{}/{}", self.os, self.arch, variant)
         } else {
-            format!("{}/{}", self.os, self.arch)
+            write!(f, "{}/{}", self.os, self.arch)
         }
     }
 }

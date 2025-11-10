@@ -170,15 +170,16 @@ impl Session {
         meta.insert("X-Docker-Expose-Session-Sharedkey".to_string(), vec![self.shared_key.clone()]);
 
         // Add supported gRPC methods
-        let mut methods = Vec::new();
-        methods.push("/grpc.health.v1.Health/Check".to_string());
-        methods.push("/moby.filesync.v1.FileSync/DiffCopy".to_string());
-        methods.push("/moby.filesync.v1.FileSync/TarStream".to_string());
-        methods.push("/moby.filesync.v1.Auth/Credentials".to_string());
-        methods.push("/moby.filesync.v1.Auth/FetchToken".to_string());
-        methods.push("/moby.filesync.v1.Auth/GetTokenAuthority".to_string());
-        methods.push("/moby.filesync.v1.Auth/VerifyTokenAuthority".to_string());
-        methods.push("/moby.buildkit.secrets.v1.Secrets/GetSecret".to_string());
+        let methods = vec![
+            "/grpc.health.v1.Health/Check".to_string(),
+            "/moby.filesync.v1.FileSync/DiffCopy".to_string(),
+            "/moby.filesync.v1.FileSync/TarStream".to_string(),
+            "/moby.filesync.v1.Auth/Credentials".to_string(),
+            "/moby.filesync.v1.Auth/FetchToken".to_string(),
+            "/moby.filesync.v1.Auth/GetTokenAuthority".to_string(),
+            "/moby.filesync.v1.Auth/VerifyTokenAuthority".to_string(),
+            "/moby.buildkit.secrets.v1.Secrets/GetSecret".to_string(),
+        ];
         meta.insert("X-Docker-Expose-Session-Grpc-Method".to_string(), methods);
 
         meta
